@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merry Christmas</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #001f3f;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom, #001f3f, #004080);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 20px;
+      color: #ff4444;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin: 10px auto;
+      width: 80%;
+    }
+
+    .photo {
+      margin-top: 20px;
+    }
+
+    .photo img {
+      max-width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff6666;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Merry Christmas, My Love!</h1>
+  <p>Chúc em một Giáng Sinh an lành, ấm áp bên anh. Yêu em nhiều lắm! ✨🎄</p>
+  <div class="photo">
+    <img src="467482233_616083514096152_7947551583354599221_n.jpg" alt="Christmas photo">
+  </div>
+  <button onclick="alert('Em là món quà Giáng Sinh tuyệt vời nhất anh có! 🎁')">Nhấn để xem bất ngờ!</button>
+
+  <canvas id="snow"></canvas>
+
+  <script>
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -10,
+        radius: Math.random() * 3 + 1,
+        speed: Math.random() * 2 + 1,
+        wind: Math.random() * 0.5 - 0.25
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((particle, index) => {
+        particle.y += particle.speed;
+        particle.x += particle.wind;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        if (particle.y > canvas.height) {
+          particles.splice(index, 1);
+        }
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    setInterval(createParticles, 50);
+    resizeCanvas();
+    drawParticles();
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+</body>
+</html>
